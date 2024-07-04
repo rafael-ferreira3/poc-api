@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/rafael-ferreira3/poc-api/internal/handler"
-	"github.com/rafael-ferreira3/poc-api/internal/util/api"
+	"github.com/rafael-ferreira3/poc-api/internal/util"
 )
 
 type apiFunc func(http.ResponseWriter, *http.Request) error
@@ -13,7 +13,7 @@ type apiFunc func(http.ResponseWriter, *http.Request) error
 func makeHTTPHandleFunc(f apiFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := f(w, r); err != nil {
-			api.WriteJson(w, http.StatusBadRequest, api.ApiError{Error: err.Error()})
+			util.WriteJson(w, http.StatusBadRequest, util.ApiError{Error: err.Error()})
 		}
 	}
 }

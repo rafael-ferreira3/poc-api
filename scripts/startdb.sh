@@ -1,0 +1,1 @@
+docker run -d --name api-server-db -p 5432:5432 -e POSTGRES_PASSWORD=apiserver -e PGDATA=/var/lib/postgresql/data/pgdata -v ~/database/postgres:/var/lib/postgresql/data postgres
