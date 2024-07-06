@@ -12,6 +12,10 @@ type APIServer struct {
 	Router *chi.Mux
 }
 
+type ApiError struct {
+	Error string `json:"error"`
+}
+
 func NewAPIServer(addr string) *APIServer {
 	return &APIServer{
 		addr:   addr,
