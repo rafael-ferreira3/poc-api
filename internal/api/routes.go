@@ -26,7 +26,7 @@ func (s *APIServer) RegisterRoutes() {
 			u.Get("/{id}", makeHTTPHandleFunc(handler.HandlerGetUserById))
 			u.Post("/", makeHTTPHandleFunc(handler.HandlerCreateUser))
 			u.Put("/", makeHTTPHandleFunc(handler.HandlerUpdate))
-			u.Delete("/", makeHTTPHandleFunc(handler.HandlerDeleteUser))
+			u.Delete("/{id}", makeHTTPHandleFunc(handler.HandlerDeleteUser))
 		})
 	})
 }

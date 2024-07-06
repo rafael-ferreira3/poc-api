@@ -17,3 +17,6 @@
 
 # macOS specific files
 .DS_Store
+
+#Arquivos de build
+bin/*

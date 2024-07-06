@@ -1,12 +1,24 @@
 package database
 
-import "database/sql"
+import (
+	"database/sql"
+	"log"
+
+	_ "github.com/lib/pq"
+)
 
 var DB *sql.DB
 
+func init() {
+	if err := Initialize(); err != nil {
+		log.Fatalf("Failed to initialize database: %v", err)
+	}
+}
+
 func Initialize() error {
 	connStr := "user=postgres dbname=postgres password=apiserver sslmode=disable"
-	DB, err := sql.Open("postgres", connStr)
+	var err error
+	DB, err = sql.Open("postgres", connStr)
 	if err != nil {
 		return err
 	}
@@ -15,9 +27,11 @@ func Initialize() error {
 		return err
 	}
 
+	log.Println("Database connection successfully initialized")
 	return nil
 }
 
-func close() {
+func Close() {
+	log.Println("Database connection closed")
 	DB.Close()
 }
