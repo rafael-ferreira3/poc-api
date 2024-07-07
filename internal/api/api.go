@@ -24,6 +24,7 @@ func NewAPIServer(addr string) *APIServer {
 }
 
 func (s *APIServer) Run() error {
+	s.RegisterMiddlewares()
 	s.RegisterRoutes()
 	log.Println("Listening on", s.addr)
 	return http.ListenAndServe(s.addr, s.Router)

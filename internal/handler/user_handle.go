@@ -12,7 +12,6 @@ import (
 var UserService = service.NewUserService()
 
 func HandlerGetUsers(w http.ResponseWriter, r *http.Request) error {
-
 	usersResponse, err := UserService.GetAllUsers()
 	if err != nil {
 		return err

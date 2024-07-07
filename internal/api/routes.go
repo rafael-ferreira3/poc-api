@@ -21,12 +21,22 @@ func makeHTTPHandleFunc(f apiFunc) http.HandlerFunc {
 func (s *APIServer) RegisterRoutes() {
 
 	s.Router.Route("/api/v1", func(r chi.Router) {
-		r.Route("/user", func(u chi.Router) {
-			u.Get("/", makeHTTPHandleFunc(handler.HandlerGetUsers))
-			u.Get("/{id}", makeHTTPHandleFunc(handler.HandlerGetUserById))
-			u.Post("/", makeHTTPHandleFunc(handler.HandlerCreateUser))
-			u.Put("/", makeHTTPHandleFunc(handler.HandlerUpdate))
-			u.Delete("/{id}", makeHTTPHandleFunc(handler.HandlerDeleteUser))
+		//Rotas desprotegidas
+		r.Route("/auth", func(r chi.Router) {
+			r.Post("/login", makeHTTPHandleFunc(handler.HandlerLogin))
+		})
+
+		//Rotas Protegidas
+		r.Group(func(r chi.Router) {
+			r.Use(AuthenticationMiddleware)
+			r.Route("/user", func(r chi.Router) {
+				r.Get("/", makeHTTPHandleFunc(handler.HandlerGetUsers))
+				r.Get("/{id}", makeHTTPHandleFunc(handler.HandlerGetUserById))
+				r.Post("/", makeHTTPHandleFunc(handler.HandlerCreateUser))
+				r.Put("/", makeHTTPHandleFunc(handler.HandlerUpdate))
+				r.Delete("/{id}", makeHTTPHandleFunc(handler.HandlerDeleteUser))
+			})
+
 		})
 	})
 }
