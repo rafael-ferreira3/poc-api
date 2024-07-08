@@ -1,7 +1,8 @@
 package main
 
 import (
-	"log"
+	"fmt"
+	"os"
 
 	"github.com/rafael-ferreira3/poc-api/internal/api"
 	"github.com/rafael-ferreira3/poc-api/internal/database"
@@ -11,5 +12,8 @@ import (
 func main() {
 	defer database.Close()
 	server := api.NewAPIServer(helper.GetAddress())
-	log.Fatal(server.Run())
+	if err := server.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
 }
