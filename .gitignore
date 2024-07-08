@@ -20,3 +20,6 @@
 
 #Arquivos de build
 bin/*
+
+#Arquivo de Configuração
+.env

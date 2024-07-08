@@ -26,7 +26,7 @@ func StringToInt64(s string) (int64, error) {
 func GetAddress() string {
 	addr := os.Getenv("API_PORT")
 	if addr == "" {
-		addr = "8081"
+		addr = "8080"
 	}
 
 	return ":" + addr
